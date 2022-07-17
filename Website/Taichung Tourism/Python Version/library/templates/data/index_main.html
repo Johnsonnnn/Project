@@ -1,0 +1,106 @@
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+		.carousel-control.left {
+			background-image:none;
+			background-repeat: repeat-x;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+		}
+		.carousel-control.right {
+			left: auto; right: 0;
+			background-image:none;
+			background-repeat: repeat-x;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+		}
+		.fulldiv{
+			display: inline-block;
+			text-align: center;
+		}
+		.initImg{
+			width: 250px;
+			height: 160px;
+		}
+		.dataImg{
+			width: 200px;
+			height: 150px;
+		}
+		.out-title {
+			width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	</style>
+	<script>
+		$(function() {
+    carouselNormalization();
+});
+	function carouselNormalization() {
+		var items = $('.carousel .carousel-inner .item'), heights = [], tallest, bwidth, height, width;
+		if( items.length ) {
+			function normalizeHeights() {
+				bwidth = $('.carousel').width();
+				items.each(function() {
+					height = $(this).height();
+					width = $(this).width();
+					if( width > bwidth ) {
+						height = height * ( bwidth / width );
+					}
+					heights.push(height);
+				});
+				tallest = Math.max.apply(null, heights);
+				if( tallest > bwidth ) {
+					tallest = bwidth;
+				}
+				items.each(function() {
+					$(this).css('height', tallest + 'px');
+				});
+			};
+			normalizeHeights();
+			$(window).on('resize', function() {
+				bwidth = $('.carousel').width();
+				heights = [];
+				items.each(function() {
+					$(this).css('height', 'auto');
+				});
+				normalizeHeights();
+			});
+		}
+	}
+	</script>
+</head>
+<body>
+	<table align='center' width='100%'>
+		<tr>
+			<td>
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+				<div>
+					<ul class="nav navbar-nav navbar-left">
+						<li><a><strong style='font-size: 30px;'>台中旅遊</strong></a></li>
+					</ul>
+				</div>
+				<div>
+					<ul class="nav navbar-nav navbar-right">
+						<li class='active'><a href="{{ url_for('choice_main') }}">主頁</a></li>
+						<li><a href="{{ url_for('choice1') }}">景點</a></li>
+						<li class='active'><a href="{{ url_for('choice2') }}">低碳旅館</a></li>
+						<li><a href="{{ url_for('choice3') }}">旅館</a></li>
+						<li class='active'><a href="{{ url_for('choice4') }}">民宿</a></li>
+
+					</ul>
+				</div>
+				</div>
+			</nav>
+			</td>
+		</tr>
+	</table>
+	{% block content %}
+			this is block
+	{% endblock %}
+</body>
+</html>

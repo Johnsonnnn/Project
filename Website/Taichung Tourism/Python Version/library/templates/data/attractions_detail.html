@@ -1,0 +1,122 @@
+{% extends "data/index_main.html" %}
+
+{% block title %}景點{% endblock %}
+
+{% block content %}
+<div class="container">
+<table align='center' class='table table-hover table-striped'>
+	<tr align='center'>
+		<td align='center' colspan='5'>
+			<p>目前頁數:<strong>{{ page }}</strong></p>
+			{% if page != 1 %}
+				<a href='?page={{ page - 1 }}' class="btn btn-info" role="button">上一頁</a> 
+			{% endif %}
+			{% if page != 1 and page != max_page %}|{% endif %}
+			{% if page != max_page %}
+				<a href='?page={{ page + 1 }}' class="btn btn-info" role="button">下一頁</a>
+			{% endif %}
+		</td>
+	</tr>
+	<tr>
+		<td width='15%'></td>
+		<td width='70%' align='center'>
+			<div class='fulldiv'>
+				<img src='/static/attractions/{{ center_data.name }}_0.jpg' class='img-thumbnail initImg' alt="First image">
+			<img src='/static/attractions/{{ center_data.name }}_1.jpg' class='img-thumbnail initImg' alt="Second image">
+			<img src='/static/attractions/{{ center_data.name }}_2.jpg' class='img-thumbnail initImg' alt="Third image">
+			
+				
+			</div>
+		</td>
+		<td width='15%'></td>
+		
+	</tr>
+	<tr>
+		<td width='15%'></td>
+		<td width='70%'>
+			
+			<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ center_data.name }}</h3>
+					</div>
+					<div class="panel-body">
+			{% if center_data.addr1 and center_data.addr2 %}
+				地址: {{ center_data.addr1 }}{{ center_data.addr2 }}<br>
+			{% endif %}
+			
+			{% if phone %}
+				電話: {{ center_data.phone }}<br>
+			{% endif %}
+			
+			開放狀態: {{ center_data.state }}<br>
+			
+			{% if center_data.east %}
+				東經:{{ center_data.east }}<br>
+			{% endif %}
+			
+			{% if center_data.north %}
+				北緯:{{ center_data.north }}<br>
+			{% endif %}
+			
+			{% if center_data.public_transportation %}
+				大眾運輸:{{ center_data.public_transportation }}<br>
+			{% endif %}
+			
+			{% if center_data.ticket %}
+				門票資訊:{{ center_data.ticket }}<br>
+			{% endif %}
+			
+			{% if center_data.drive_info %}
+				行車資訊:{{ center_data.drive_info }}<br>
+			{% endif %}
+			
+			{% if center_data.parking_info %}
+				停車資訊:{{ center_data.parking_info }}<br>
+			{% endif %}
+			
+			{% if center_data.advice %}
+				旅遊叮嚀:{{ center_data.advice }}<br>
+			{% endif %}
+			
+					</div>
+			</div>
+			
+			{% if center_data.brif %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">簡介</h3>
+					</div>
+					<div class="panel-body">
+						{{ center_data.brif }}
+					</div>
+				</div>
+			{% endif %}
+			
+			{% if center_data.introduction %}
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">介紹</h3>
+					</div>
+					<div class="panel-body">
+						{{ center_data.introduction }}
+					</div>
+				</div>
+			{% endif %}
+		</td>
+		<td width='15%'></td>
+	</tr>
+	<tr align='center'>
+		<td align='center' colspan='5'>
+			<p>目前頁數:<strong>{{ page }}</strong></p>
+			{% if page != 1 %}
+				<a href='?page={{ page - 1 }}' class="btn btn-info" role="button">上一頁</a>
+			{% endif %}
+			{% if page != 1 and page != max_page %}|{% endif %}
+			{% if page != max_page %}
+				<a href='?page={{ page + 1 }}' class="btn btn-info" role="button">下一頁</a>
+			{% endif %}
+		</td>
+	</tr>
+</table>
+</div>
+{% endblock %}

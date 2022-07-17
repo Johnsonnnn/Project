@@ -1,0 +1,209 @@
+<html>
+<head>
+	<title>旅館</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/myimg.css" />
+
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/json/Hotel.json" type="text/javascript"></script>
+
+</head>
+<body>
+	<table align='center' width='100%'>
+		<tr>
+			<td>
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div>
+							<ul class="nav navbar-nav navbar-left">
+								<li><a><strong style='font-size: 30px;'>台中旅遊</strong></a></li>
+							</ul>
+						</div>
+						<div>
+							<ul class="nav navbar-nav navbar-right">
+								<li class='active'><a href="../index.html">主頁</a></li>
+								<li><a href="attractions.html?page=1">景點</a></li>
+								<li class='active'><a href="low_carbon_hotel.html">低碳旅館</a></li>
+								<li><a href="hotel.html">旅館</a></li>
+								<li class='active'><a href="lodging.html">民宿</a></li>
+
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</td>
+		</tr>
+	</table>
+	<script>
+        var url = location.href;
+        if (url.indexOf('?') != -1) {
+            var ary1 = url.split('?');
+            var ary2 = ary1[1].split('=');
+			var page = parseInt(ary2[1]);
+
+            var max_page = data['ROOT']['RECORD'].length;
+
+            if (page > max_page || page < 1 || page == undefined) {
+                window.location.href = '../routing/404.html';
+            }
+            var hotel_detailData = data['ROOT']['RECORD'][page - 1];
+
+        } else {
+            window.location.href = '../routing/404.html';
+		}
+		function displayPage() {
+            document.write(`<p>目前頁數:<strong>${page}</strong></p>`);
+            if (page != 1) {
+                document.write(`<a href='?page=${page - 1}' class="btn btn-info" role="button">上一頁</a>`);
+            }
+            if (page != 1 && page != max_page) {
+                document.write('|');
+            }
+            if (page != max_page) {
+                document.write(`<a href='?page=${page + 1}' class="btn btn-info" role="button">下一頁</a>`);
+            }
+        }
+	</script>
+	<div class="container">
+		<table align='center' class='table table-hover table-striped'>
+			<tr align='center'>
+				<td align='center' colspan='5'>
+					<script>displayPage();</script>
+				</td>
+			</tr>
+			<tr>
+				<td width='15%'></td>
+				<td width='70%' align='center'>
+					<div class='fulldiv'>
+
+						<script>
+						var content = `
+						<img src='../static/hotel/${hotel_detailData['name']}_0.jpg' class='img-thumbnail initImg' alt="First image">
+						<img src='../static/hotel/${hotel_detailData['name']}_1.jpg' class='img-thumbnail initImg' alt="Second image">
+						<img src='../static/hotel/${hotel_detailData['name']}_2.jpg' class='img-thumbnail initImg' alt="Third image">`;
+
+							document.write(content);
+						</script>
+					</div>
+				</td>
+				<td width='15%'></td>
+
+			</tr>
+			<tr>
+				<td width='15%'></td>
+				<td width='70%'>
+
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<script>document.write(`<h3 class="panel-title">${hotel_detailData['name']}</h3>`)</script>
+						</div>
+						<div class="panel-body">
+							<script>
+                                if (hotel_detailData['start_date'] != "") {
+                                    document.write(`核准營業日期: ${hotel_detailData['start_date']}<br>`);
+								}
+                                if (hotel_detailData['registration_number'] != "") {
+                                    document.write(`縣市旅宿登記證號: ${hotel_detailData['registration_number']}<br>`);
+								}
+                                if (hotel_detailData['category'] != "") {
+                                    document.write(`類別: ${hotel_detailData['category']}<br>`);
+								}
+                                if (hotel_detailData['star'] != "") {
+                                    document.write(`星等: ${hotel_detailData['star']}<br>`);
+								}
+                                if (hotel_detailData['room_number'] != "") {
+                                    document.write(`房間數: ${hotel_detailData['room_number']}<br>`);
+                                }
+							</script>
+						</div>
+					</div>
+
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">聯絡資訊</h3>
+						</div>
+						<div class="panel-body">
+
+							<script>
+								if (hotel_detailData['addr'] != "") {
+                                    document.write(`地址: ${hotel_detailData['addr']}<br>`);
+								}
+                                if (hotel_detailData['postal'] != "") {
+                                    document.write(`郵遞區號: ${hotel_detailData['postal']}<br>`);
+								}
+                                if (hotel_detailData['phone'] != "") {
+                                    document.write(`電話: ${hotel_detailData['phone']}<br>`);
+								}
+                                if (hotel_detailData['fax'] != "") {
+                                    document.write(`傳真: ${hotel_detailData['fax']}<br>`);
+								}
+                                if (hotel_detailData['email'] != "") {
+                                    document.write(`Email: <a href='mailto:${hotel_detailData['email']}'>${hotel_detailData['email']}</a><br>`);
+								}
+                                if (hotel_detailData['web_page'] != "") {
+                                    document.write(`網站: <a href='${hotel_detailData['web_page']}'>${hotel_detailData['web_page']}</a><br>`);
+                                }
+							</script>
+							
+						</div>
+					</div>
+
+					<script>
+
+						if (hotel_detailData['device'] != "") {
+							document.write(`<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">設備</h3>
+						</div>
+						<div class="panel-body">`);
+
+							for (let i = 0; i < hotel_detailData['device'].length; i++) {
+                                document.write(`<h3 style='display:inline-block;'>
+								<span class="label label-info">
+									${hotel_detailData['device'][i]}
+								</span>
+							</h3>`);
+                            }
+							document.write(`
+						</div>
+					</div>`);
+						}
+
+
+                        if (hotel_detailData['features_services'] != "") {
+                            document.write(`<div class="panel panel-success">
+						<div class="panel-heading">
+							<h3 class="panel-title">特色和服務</h3>
+						</div>
+						<div class="panel-body">`);
+
+							for (let i = 0; i < hotel_detailData['features_services'].length; i++) {
+								document.write(`<h3 style='display:inline-block;'>
+								<span class="label label-success">
+									${hotel_detailData['features_services'][i]}
+								</span>
+							</h3>`);
+                            }
+
+							document.write(`</div>
+					</div>`);
+
+                        }
+					</script>
+				</td>
+				<td width='15%'></td>
+			</tr>
+			<tr align='center'>
+				<td align='center' colspan='5'>
+					<script>
+						displayPage();
+					</script>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>

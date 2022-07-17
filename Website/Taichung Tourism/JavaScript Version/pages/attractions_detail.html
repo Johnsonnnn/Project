@@ -1,0 +1,199 @@
+<html>
+<head>
+	<title>景點</title>
+	<meta charset="utf-8" />
+
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/myimg.css" />
+
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/json/Attractions.json" type="text/javascript"></script>
+</head>
+<body>
+	<table align='center' width='100%'>
+		<tr>
+			<td>
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div>
+							<ul class="nav navbar-nav navbar-left">
+								<li><a><strong style='font-size: 30px;'>台中旅遊</strong></a></li>
+							</ul>
+						</div>
+						<div>
+							<ul class="nav navbar-nav navbar-right">
+								<li class='active'><a href="../index.html">主頁</a></li>
+								<li><a href="attractions.html?page=1">景點</a></li>
+								<li class='active'><a href="low_carbon_hotel.html">低碳旅館</a></li>
+								<li><a href="hotel.html">旅館</a></li>
+								<li class='active'><a href="lodging.html">民宿</a></li>
+
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</td>
+		</tr>
+	</table>
+
+
+	<script>
+		var url = location.href;
+		if (url.indexOf('?') != -1) {
+			attractionsData = data["ROOT"]['RECORD'];
+
+			var ary1 = url.split('?');
+			var ary2 = ary1[1].split('=');
+			var id = ary2[1];
+
+			for (let i = 0; i < attractionsData.length; i++) {
+				if (id == attractionsData[i]['ID']) {
+					var page = i + 1;
+					break;
+				}
+			}
+
+            var max_page = data['ROOT']['RECORD'].length;
+
+			if (page > max_page || page < 1 || page == undefined) {
+				window.location.href = '../routing/404.html';
+			}
+            var attractions_detailData = data['ROOT']['RECORD'][page - 1];
+
+		} else {
+			window.location.href = '../routing/404.html';
+		}
+
+		function displayPage() {
+			document.write(`<p>目前頁數:<strong>${page}</strong></p>`);
+
+			if (page != 1) {
+                var idPre = data['ROOT']['RECORD'][page - 1 - 1]['ID'];
+				document.write(`<a href='?ID=${idPre}' class="btn btn-info" role="button">上一頁</a>`);
+			}
+			if (page != 1 && page != max_page) {
+				document.write('|');
+			}
+			if (page != max_page) {
+                var idNext = data['ROOT']['RECORD'][page - 1 + 1]['ID'];
+				document.write(`<a href='?ID=${idNext}' class="btn btn-info" role="button">下一頁</a>`);
+			}
+		}
+	</script>
+	<div class="container">
+		<table align='center' class='table table-hover table-striped'>
+			<tr align='center'>
+				<td align='center' colspan='5'>
+					<script>displayPage();</script>
+				</td>
+			</tr>
+			<tr>
+				<td width='15%'></td>
+				<td width='70%' align='center'>
+					<div class='fulldiv'>
+						<script>
+							var content = `
+												<img src='../static/attractions/${attractions_detailData['name']}_0.jpg' class='img-thumbnail initImg' alt="First image">
+												<img src='../static/attractions/${attractions_detailData['name']}_1.jpg' class='img-thumbnail initImg' alt="Second image">
+												<img src='../static/attractions/${attractions_detailData['name']}_2.jpg' class='img-thumbnail initImg' alt="Third image">`;
+
+							document.write(content);
+						</script>
+					</div>
+				</td>
+				<td width='15%'></td>
+
+			</tr>
+			<tr>
+				<td width='15%'></td>
+				<td width='70%'>
+
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<script>document.write(`<h3 class="panel-title">${attractions_detailData['name']}</h3>`)</script>
+						</div>
+						<div class="panel-body">
+							<script>
+								if (attractions_detailData['addr1'] != "" && attractions_detailData['addr2'] != "") {
+									document.write(`地址: ${attractions_detailData['addr1']}${attractions_detailData['addr2']}<br>`);
+								}
+								if (attractions_detailData['phone'] != "") {
+									document.write(`電話: ${attractions_detailData['phone']}<br>`);
+								}
+
+								document.write(`開放狀態: ${attractions_detailData['state']}<br>`);
+
+
+								if (attractions_detailData['east'] != "") {
+									document.write(`東經:${attractions_detailData['east']}<br>`);
+								}
+
+								if (attractions_detailData['north'] != "") {
+									document.write(`北緯:${attractions_detailData['north']}<br>`);
+								}
+
+								if (attractions_detailData['public_transportation'] != "") {
+									document.write(`大眾運輸:${attractions_detailData['public_transportation']}<br>`);
+								}
+
+								if (attractions_detailData['ticket'] != "") {
+									document.write(`門票資訊:${attractions_detailData['ticket']}<br>`);
+								}
+
+								if (attractions_detailData['drive_info'] != "") {
+									document.write(`行車資訊:${attractions_detailData['drive_info']}<br>`);
+								}
+
+								if (attractions_detailData['parking_info'] != "") {
+									document.write(`停車資訊:${attractions_detailData['parking_info']}<br>`);
+								}
+
+								if (attractions_detailData['advice'] != "") {
+									document.write(`旅遊叮嚀:${attractions_detailData['advice']}<br>`);
+								}
+
+							</script>
+						</div>
+					</div>
+					<script>
+						if (attractions_detailData['brif'] != "") {
+							document.write(`
+										<div class="panel panel-info">
+											<div class="panel-heading">
+												<h3 class="panel-title">簡介</h3>
+											</div>
+											<div class="panel-body">
+												${attractions_detailData['brif']}
+											</div>
+										</div>`);
+						}
+
+						if (attractions_detailData['introduction'] != "") {
+							document.write(`
+										<div class="panel panel-success">
+											<div class="panel-heading">
+												<h3 class="panel-title">介紹</h3>
+											</div>
+											<div class="panel-body">
+												${attractions_detailData['introduction']}
+											</div>
+										</div>`);
+						}
+					</script>
+				</td>
+				<td width='15%'></td>
+			</tr>
+			<tr align='center'>
+				<td align='center' colspan='5'>
+					<script>
+						displayPage();
+					</script>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+</body>
+</html>

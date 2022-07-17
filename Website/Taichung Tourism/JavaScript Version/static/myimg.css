@@ -1,0 +1,38 @@
+<style >
+.carousel-control.left {
+    background-image: none;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+
+.carousel-control.right {
+    left: auto;
+    right: 0;
+    background-image: none;
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
+.fulldiv {
+    display: inline-block;
+    text-align: center;
+}
+
+.initImg {
+    width: 250px;
+    height: 160px;
+}
+
+.dataImg {
+    width: 200px;
+    height: 150px;
+}
+
+.out-title {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+</style >

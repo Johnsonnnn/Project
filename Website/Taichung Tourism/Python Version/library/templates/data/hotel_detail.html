@@ -1,0 +1,147 @@
+{% extends "data/index_main.html" %}
+
+{% block title %}景點{% endblock %}
+
+{% block content %}
+<div class="container">
+<table align='center' class='table table-hover table-striped'>
+	<tr align='center'>
+		<td align='center' colspan='5'>
+			<p>目前頁數:<strong>{{ page }}</strong></p>
+			{% if page != 1 %}
+				<a href='?page={{ page - 1 }}' class="btn btn-info" role="button">上一頁</a> 
+			{% endif %}
+			{% if page != 1 and page != max_page %}|{% endif %}
+			{% if page != max_page %}
+				<a href='?page={{ page + 1 }}' class="btn btn-info" role="button">下一頁</a>
+			{% endif %}
+		</td>
+	</tr>
+	<tr>
+		<td width='15%'></td>
+		<td width='70%' align='center'>
+			<div class='fulldiv'>
+				<img src='/static/hotel/{{ center_data.name }}_0.jpg' class='img-thumbnail initImg' alt="First image">
+			<img src='/static/hotel/{{ center_data.name }}_1.jpg' class='img-thumbnail initImg' alt="Second image">
+			<img src='/static/hotel/{{ center_data.name }}_2.jpg' class='img-thumbnail initImg' alt="Third image">
+			
+				
+			</div>
+		</td>
+		<td width='15%'></td>
+		
+	</tr>
+	<tr>
+		<td width='15%'></td>
+		<td width='70%'>
+			
+			<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ center_data.name }}</h3>
+					</div>
+					<div class="panel-body">
+			{% if center_data.start_date %}
+				核准營業日期::{{ center_data.start_date }}<br>
+			{% endif %}
+			
+			{% if center_data.registration_number %}
+				縣市旅宿登記證號: {{ center_data.registration_number }}<br>
+			{% endif %}
+			
+			{% if center_data.category %}
+				類別: {{ center_data.category }}<br>
+			{% endif %}
+			
+			{% if center_data.star %}
+				星等: {{ center_data.star }}<br>
+			{% endif %}
+			
+			{% if center_data.room_number %}
+				房間數: {{ center_data.room_number }}<br>
+			{% endif %}
+			
+				</div>
+			</div>
+			
+		<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">聯絡資訊</h3>
+					</div>
+			<div class="panel-body">
+			{% if center_data.addr %}
+				地址: {{ center_data.addr }}<br>
+			{% endif %}
+			
+			{% if center_data.postal %}
+				郵遞區號: {{ center_data.postal }}<br>
+			{% endif %}
+			
+			{% if phone %}
+				電話: {{ center_data.phone }}<br>
+			{% endif %}
+			
+			{% if center_data.fax %}
+				傳真:{{ center_data.fax }}<br>
+			{% endif %}
+			
+			{% if center_data.email %}
+				Email:<a href='mailto:{{ center_data.email }}'>{{ center_data.email }}</a><br>
+			{% endif %}
+			
+			{% if center_data.web_page %}
+				網站:<a href='{{ center_data.web_page }}'>{{ center_data.web_page }}</a><br>
+			{% endif %}
+			</div>
+		</div>
+			
+	{% if center_data.device %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">設備</h3>
+					</div>
+			<div class="panel-body">
+		{% for device in center_data.device %}
+				<h3 style='display:inline-block;'>
+				<span class="label label-info">
+				{{ device }}
+				</span>
+				</h3>
+		{% endfor %}
+			</div>
+				</div>
+	{% endif %}
+			
+	{% if center_data.features_services %}
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title">特色和服務</h3>
+					</div>
+			<div class="panel-body">
+		{% for features_services in center_data.features_services %}
+				<h3 style='display:inline-block;'>
+				<span class="label label-success">
+				{{ features_services }}
+				</span>
+				</h3>
+		{% endfor %}
+			</div>
+				</div>
+	{% endif %}
+		</td>
+		<td width='15%'></td>
+	</tr>
+	<tr align='center'>
+		<td align='center' colspan='5'>
+			<p>目前頁數:<strong>{{ page }}</strong></p>
+			{% if page != 1 %}
+				<a href='?page={{ page - 1 }}' class="btn btn-info" role="button">上一頁</a>
+			{% endif %}
+			{% if page != 1 and page != max_page %}|{% endif %}
+			{% if page != max_page %}
+				<a href='?page={{ page + 1 }}' class="btn btn-info" role="button">下一頁</a>
+			{% endif %}
+		</td>
+	</tr>
+</table>
+</div>
+{% endblock %}

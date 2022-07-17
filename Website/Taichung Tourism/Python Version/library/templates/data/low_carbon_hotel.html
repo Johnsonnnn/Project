@@ -1,0 +1,29 @@
+{% extends "data/index_main.html" %}
+
+{% block title %}低碳旅館{% endblock %}
+
+{% block content %}
+
+<table width='100%' class='table table-hover table-striped'>
+	<td width='15%'></td>
+	{% for data in center_data %}
+	{% if loop.index0 > 1 %}
+		{% if loop.index0 % 4 == 0 %}
+		<tr>
+		<td width='15%'></td>
+		{% endif %}
+	{% endif %}
+		<td align='center'>
+		<div class="panel panel-primary">
+		  <div class="panel-heading out-title">{{ data.name }}</div>
+		  <div class="panel-body"><strong>
+		  <a href="{{ url_for('choice2_detail')}}?page={{ data.number+1 }}"><img src='/static/low_carbon_hotel/{{ data.name }}_0.jpg' class='dataImg'></a></strong></div>
+		</div>
+	  </td>
+	{% if loop.index0 % 4 == 3 %}
+	<td width='15%'></td>
+	</tr>
+	{% endif %}
+	{% endfor %}
+</table>
+{% endblock %}

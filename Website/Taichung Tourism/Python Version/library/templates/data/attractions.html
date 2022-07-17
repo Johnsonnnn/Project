@@ -1,0 +1,109 @@
+{% extends "data/index_main.html" %}
+
+{% block title %}景點{% endblock %}
+
+{% block content %}
+<div class="container">
+<table align='center' class='table table-hover table-striped'>
+	<tr align='center'>
+		<td align='center' colspan='5'>
+			<p>目前頁數:<strong>{{ page }}</strong></p>
+			{% if page != 1 %}
+				<a href='?page={{ page - 1 }}' class="btn btn-info" role="button">上一頁</a> 
+			{% endif %}
+			{% if page != 1 and page != max_page %}|{% endif %}
+			{% if page != max_page %}
+				<a href='?page={{ page + 1 }}' class="btn btn-info" role="button">下一頁</a>
+			{% endif %}
+		</td>
+		
+	</tr>
+<!--	for-->
+	
+	{% for data in center_data %}
+	
+	<tr>
+		<td width='10%'></td>
+		<td align='center'>
+			<div id="myCarousel{{ data.ID }}" class="carousel slide" data-ride="carousel">
+	<!-- 指標 -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel{{ data.ID }}" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel{{ data.ID }}" data-slide-to="1"></li>
+		<li data-target="#myCarousel{{ data.ID }}" data-slide-to="2"></li>
+	</ol>   
+	<!-- 項目 -->
+	<div class="carousel-inner">
+		<div class="item active" style='vertical-align: bottom'>
+			<a href="{{ url_for('choice1_detail') }}?ID={{ data.ID }}">
+				<img src="/static/attractions/{{ data.name }}_0.jpg" alt="First slide" class='img-thumbnail initImg'>
+			</a>
+			<div class="carousel-caption">{{ data.name }}</div>
+		</div>
+		<div class="item">
+			<a href="{{ url_for('choice1_detail') }}?ID={{ data.ID }}">
+				<img src="/static/attractions/{{ data.name }}_1.jpg" alt="Second slide" class='img-thumbnail initImg'>
+			</a>
+			<div class="carousel-caption">{{ data.name }}</div>
+		</div>
+		<div class="item">
+			<a href="{{ url_for('choice1_detail') }}?ID={{ data.ID }}">
+				<img src="/static/attractions/{{ data.name }}_2.jpg" alt="Third slide" class='img-thumbnail initImg'>
+			</a>
+			<div class="carousel-caption">{{ data.name }}</div>
+		</div>
+	</div>
+	<!-- 導航 -->
+	<a class="left carousel-control" href="#myCarousel{{ data.ID }}" role="button" data-slide="prev">
+	    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	</a>
+	<a class="right carousel-control" href="#myCarousel{{ data.ID }}" role="button" data-slide="next">
+	    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	</a>
+</div> 
+			
+		</td>
+		<td width='5%'></td>
+		<td width='55%'>
+			{% if data.addr1 and data.addr2 %}
+				地址: {{ data.addr1 }}{{ data.addr2 }}<br>
+			{% endif %}
+			
+			{% if data.phone %}
+				電話: {{ data.phone }}<br>
+			{% endif %}
+			
+			開放狀態: {{ data.state }}<br>
+			
+			{% if data.brif %}
+				簡介: {{ data.brif }}<br>
+			{% else %}
+				簡介:無
+			{% endif %}
+		
+		</td>
+		<td width='10%'></td>
+		
+	</tr>
+	
+	{% endfor %}
+	<tr align='center'>
+		<td align='center' colspan='5'>
+			<p>目前頁數:<strong>{{ page }}</strong></p>
+			{% if page != 1 %}
+				<a href='?page={{ page - 1 }}' class="btn btn-info" role="button">上一頁</a>
+			{% endif %}
+			{% if page != 1 and page != max_page %}|{% endif %}
+			{% if page != max_page %}
+				<a href='?page={{ page + 1 }}' class="btn btn-info" role="button">下一頁</a>
+			{% endif %}
+		</td>
+		
+	</tr>
+<!--	end-->
+	
+</table>
+</div>
+{% endblock %}

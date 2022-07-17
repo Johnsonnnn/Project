@@ -1,0 +1,146 @@
+<html>
+<head>
+	<title>低碳旅館</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/myimg.css" />
+
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/json/Low_carbon_hotel.json" type="text/javascript"></script>
+
+</head>
+<body>
+	<table align='center' width='100%'>
+		<tr>
+			<td>
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div>
+							<ul class="nav navbar-nav navbar-left">
+								<li><a><strong style='font-size: 30px;'>台中旅遊</strong></a></li>
+							</ul>
+						</div>
+						<div>
+							<ul class="nav navbar-nav navbar-right">
+								<li class='active'><a href="../index.html">主頁</a></li>
+								<li><a href="attractions.html?page=1">景點</a></li>
+								<li class='active'><a href="low_carbon_hotel.html">低碳旅館</a></li>
+								<li><a href="hotel.html">旅館</a></li>
+								<li class='active'><a href="lodging.html">民宿</a></li>
+
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</td>
+		</tr>
+	</table>
+
+	<div class="container">
+		<table align='center' class='table table-hover table-striped'>
+			<tr align='center'>
+				<td align='center' colspan='5'>
+
+					<script>
+						var url = location.href;
+
+						if (url.indexOf('?') != -1) {
+							
+							var ary1 = url.split('?');
+							var ary2 = ary1[1].split('=');
+							var page = parseInt(ary2[1]);
+
+                            var max_page = data['ROOT']['RECORD'].length;
+                            console.log('data:' + data['ROOT']['RECORD']);
+                            console.log('max_page:' + max_page);
+                            console.log('page:' + page);
+							if (page > max_page || page < 1) {
+                                window.location.href = '../routing/404.html';
+							}
+
+                            var low_carbon_hotel_detailData = data['ROOT']['RECORD'][page - 1];
+
+						} else {
+                            window.location.href = '../routing/404.html';
+						}
+
+						function displayPage() {
+                            document.write(`<p>目前頁數:<strong>${page}</strong></p>`);
+
+                            if (page != 1) {
+                                document.write(`<a href='?page=${page - 1}' class="btn btn-info" role="button">上一頁</a>`);
+                            }
+                            if (page != 1 && page != max_page) {
+                                document.write('|');
+                            }
+                            if (page != max_page) {
+                                document.write(`<a href='?page=${page + 1}' class="btn btn-info" role="button">下一頁</a>`);
+                            }
+                        }
+						displayPage();
+					</script>
+				</td>
+			</tr>
+			<tr>
+				<td width='15%'></td>
+				<td width='70%' align='center'>
+					<div class='fulldiv'>
+						<script>
+							var content = `
+						<img src='../static/low_carbon_hotel/${low_carbon_hotel_detailData['name']}_0.jpg' class='img-thumbnail initImg' alt="First image">
+						<img src='../static/low_carbon_hotel/${low_carbon_hotel_detailData['name']}_1.jpg' class='img-thumbnail initImg' alt="Second image">
+						<img src='../static/low_carbon_hotel/${low_carbon_hotel_detailData['name']}_2.jpg' class='img-thumbnail initImg' alt="Third image">`;
+
+							document.write(content);
+						</script>
+					</div>
+				</td>
+				<td width='15%'></td>
+
+			</tr>
+			<tr>
+				<td width='15%'></td>
+				<td width='70%'>
+
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<script>
+                                document.write(`<h3 class="panel-title">${low_carbon_hotel_detailData['name']}</h3>`);
+							</script>
+						</div>
+						<div class="panel-body">
+							<script>
+								if (low_carbon_hotel_detailData['addr'] != "") {
+                                    document.write(`地址: ${low_carbon_hotel_detailData['addr']}<br>`);
+								}
+								if (low_carbon_hotel_detailData['phone'] != "") {
+                                    document.write(`電話: ${low_carbon_hotel_detailData['phone']}<br>`);
+								}
+                                if (low_carbon_hotel_detailData['fax'] != "") {
+                                    document.write(`傳真: ${low_carbon_hotel_detailData['fax']}<br>`);
+								}
+                                if (low_carbon_hotel_detailData['email'] != "") {
+                                    document.write(`Email:<a href='mailto:${low_carbon_hotel_detailData['email']}'>${low_carbon_hotel_detailData['email']}</a><br>`);
+								}
+                                if (low_carbon_hotel_detailData['web_page'] != "") {
+                                    document.write(`網站:<a href='${low_carbon_hotel_detailData['web_page']}'>${low_carbon_hotel_detailData['web_page']}</a>`);
+                                }
+							</script>
+						</div>
+					</div>
+				</td>
+				<td width='15%'></td>
+			</tr>
+			<tr align='center'>
+				<td align='center' colspan='5'>
+					<script>
+						displayPage();
+					</script>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
